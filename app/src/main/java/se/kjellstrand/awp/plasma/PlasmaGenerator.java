@@ -15,15 +15,17 @@ public class PlasmaGenerator {
 	private static final String TAG = PlasmaGenerator.class.getCanonicalName();
 	private Bitmap bitmap;
 	private Allocation allocationColorized;
+	private Allocation xWaveAllocation;
+	private Allocation yWaveAllocation;
 
 	public int width;
 	public int height;
 
 	private int[] bitmapValues;
-	
+
 	private float[] xwave;
 	private float[] ywave;
-	
+
 	private ScriptC_colorize coloriseScript;
 
 	private RenderScript rs;
@@ -49,10 +51,22 @@ public class PlasmaGenerator {
 		int[] colors = new int[] { 0xff000000, 0xffff0000, 0xffffff00,
 				0xffffffff };
 		setupPalette(context, colors);
+
+		Element type = Element.F32(rs);
+		xWaveAllocation = Allocation.createSized(rs, type, width);
+		yWaveAllocation = Allocation.createSized(rs, type, height);
+		coloriseScript.bind_xwave(xWaveAllocation);
+		coloriseScript.bind_ywave(yWaveAllocation);
+		
+		coloriseScript.set_colorSize(paletteSize);
+		coloriseScript.set_width(width);
 	}
 
 	public Bitmap getBitmapForFrame(int frame) {
 		long t = System.currentTimeMillis();
+
+		renderWaves(frame);
+		Log.d(TAG, "renderWaves: " + (System.currentTimeMillis() - t));
 
 		t = System.currentTimeMillis();
 		renderColors();
@@ -65,18 +79,23 @@ public class PlasmaGenerator {
 		Log.d(TAG, "renderToBitmap: " + (System.currentTimeMillis() - t));
 		return bitmap;
 	}
-	
-	private void renderWaves(int frame){
-		for(int x=0; x<xwave.length;x++){
-			xwave[x] = getSeed(frame, 73f, width);
+
+	private void renderWaves(int frame) {
+		for (int x = 0; x < xwave.length; x++) {
+			xwave[x] = getSeed(frame+x, 73f, width) * 0.5f;
+			//Log.d("tag", "x: "+xwave[x]);
 		}
-		for(int y=0; y<ywave.length;y++){
-			ywave[y] = getSeed(frame, 74f, height);
+		for (int y = 0; y < ywave.length; y++) {
+			ywave[y] = getSeed(frame+y, 44f, height) * 0.5f;
+			//Log.d("tag", "y: "+ywave[y]);
 		}
+
+		xWaveAllocation.copy1DRangeFrom(0, width, xwave);
+		yWaveAllocation.copy1DRangeFrom(0, height, ywave);
 	}
-	
-	private float getSeed(int frame, float frequency, int width) {
-		return (float) (Math.sin(frame / frequency) + 1) / 2f;
+
+	private float getSeed(int seed, float frequency, int width) {
+		return (float) (Math.sin(seed / frequency) + 1) / 2f;
 	}
 
 	private void renderColors() {
