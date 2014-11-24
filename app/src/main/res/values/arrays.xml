@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  -->
+    <string-array name="list_of_theme_entries">
+        <item>@string/theme_black_n_white</item>
+        <item>@string/theme_bee_stripes</item>
+        <item>@string/theme_blue_hole</item>
+        <item>@string/theme_blue_yellow</item>
+        <item>@string/theme_bright_pink</item>
+        <item>@string/theme_pale_pink</item>
+        <item>@string/theme_red_white</item>
+        <item>@string/theme_shiny_scales</item>
+        <item>@string/theme_slime_green</item>
+        <item>@string/theme_sunset</item>
+        <item>@string/theme_sunrise</item>
+        <item>@string/theme_zebra_stripes</item>
+        <item>@string/theme_milky_way</item>
+        <item>@string/theme_terracotta</item>
+        <item>@string/theme_teal</item>
+        <item>@string/theme_brick_wall</item>
+        <item>@string/theme_chrome</item>
+        <item>@string/theme_dessert</item>
+        <item>@string/theme_feeling_blue</item>
+        <item>@string/theme_heavy_rain</item>
+        <item>@string/theme_forest</item>
+    </string-array>
+
+</resources>

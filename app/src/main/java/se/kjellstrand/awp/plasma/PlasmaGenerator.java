@@ -30,7 +30,7 @@ public class PlasmaGenerator {
 
 	private RenderScript rs;
 
-	private int paletteSize = 512;
+	private int paletteSize = 140;
 
 	public PlasmaGenerator(Context context, int width, int height) {
 		this.width = width;
@@ -48,9 +48,7 @@ public class PlasmaGenerator {
 		xwave = new float[width];
 		ywave = new float[height];
 
-		int[] colors = new int[] { 0xff000000, 0xffff0000, 0xffffff00,
-				0xffffffff };
-		setupPalette(context, colors);
+		setupPalette(context);
 
 		Element type = Element.F32(rs);
 		xWaveAllocation = Allocation.createSized(rs, type, width);
@@ -84,12 +82,12 @@ public class PlasmaGenerator {
 		// Log.d("tag", "weight " + weight);
 		float speed = 5f;
 		for (int x = 0; x < xwave.length; x++) {
-			xwave[x] = (getSeed(frame*speed + x, 127f, width) + getSeed(-frame*speed + x,
-					77f, width)) * weight / 2f;
+			xwave[x] = (getSeed(frame * speed + x, 127f, width) + getSeed(
+					-frame * speed + x, 77f, width)) * weight / 2f;
 		}
 		for (int y = 0; y < ywave.length; y++) {
-			ywave[y] = (getSeed(frame*speed + y, 129f, height) + getSeed(-frame*speed + y,
-					75f, height)) * (1 - weight) / 2f;
+			ywave[y] = (getSeed(frame * speed + y, 129f, height) + getSeed(
+					-frame * speed + y, 75f, height)) * (1 - weight) / 2f;
 		}
 
 		xWaveAllocation.copy1DRangeFrom(0, width, xwave);
@@ -118,8 +116,14 @@ public class PlasmaGenerator {
 		coloriseScript = new ScriptC_colorize(rs);
 	}
 
-	private void setupPalette(Context context, int[] colors) {
-		int[] d = Palette.getPalette(context, colors, paletteSize);
+	private void setupPalette(Context context) {
+		int brightness = 100;
+		Theme theme = new Theme(context.getResources().getString(
+				R.string.theme_shiny_scales), context, paletteSize);
+		int[] d = Palette.getPalette(context, theme, brightness);
+		for(int i=0;i<d.length;i++){
+			Log.d("tag", "I: "+d[i]);
+		}
 
 		Element type = Element.I32(rs);
 		Allocation colorAllocation = Allocation.createSized(rs, type,

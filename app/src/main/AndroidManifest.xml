@@ -10,10 +10,10 @@
     <application
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/name" >
         <service
             android:name="se.kjellstrand.awp.plasma.PlasmaWallpaper"
-            android:label="@string/service_name"
+            android:label="@string/name"
             android:permission="android.permission.BIND_WALLPAPER" >
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />

@@ -1,5 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+* Copyright (C) 2012 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+-->
+
 <resources>
-    <string name="app_name">Plasma</string>
-    <string name="service_name">Plasma</string>
-    <string name="eld_desc">Plasma</string>
+
+    <string name="name">Plasma wallpaper</string>
+
+    <!-- Preferences related -->
+    <string name="pref_theme_dialog_title">Theme selector</string>
+    <string name="pref_theme_key">theme_key</string>
+    <string name="pref_theme_summary">Select the theme of the Julia wallpaper</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_brightness_key">brightness_key</string>
+    <string name="pref_brightness_summary">Adjust brightness of the wallpaper</string>
+    <string name="pref_brightness_title">Brightness</string>
+    <string name="pref_share_title">Share</string>
+    <string name="pref_share_text">Sharing is caring, thats why I\'m sending you a link to JULIA SET LIVE WALLPAPER -> https://play.google.com/store/apps/details?id=se.kjellstrand.julia</string>
+    <string name="pref_swipe_hor_morph_summary">Change the background when swiping between desktops</string>
+    <string name="pref_swipe_hor_morph_title">Swipe sideways</string>
+    <string name="pref_swipe_hor_morph_key">swipe_morph_hor_key</string>
+    <string name="pref_swipe_ver_morph_summary">Change the background when swiping up and down on the desktop</string>
+    <string name="pref_swipe_ver_morph_title">Swipe up/down</string>
+    <string name="pref_swipe_ver_morph_key">swipe_morph_ver_key</string>
+    <string name="theme_black_n_white">Black and White</string>
+    <string name="theme_blue_yellow">Blue and Yellow</string>
+    <string name="theme_red_white">Polka</string>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunrise">Sunrise</string>
+    <string name="theme_pale_pink">Pale Pink</string>
+    <string name="theme_bright_pink">Bright Pink</string>
+    <string name="theme_bee_stripes">Bee stripes</string>
+    <string name="theme_slime_green">Slime green</string>
+    <string name="theme_blue_hole">Blue hole</string>
+    <string name="theme_zebra_stripes">Zebra stripes</string>
+    <string name="theme_shiny_scales">Shiny stuff</string>
+    <string name="theme_milky_way">Milky Way</string>
+    <string name="theme_terracotta">Terra Cotta</string>
+    <string name="theme_forest">Forest</string>
+    <string name="theme_feeling_blue">Feeling blue</string>
+    <string name="theme_brick_wall">Brick wall</string>
+    <string name="theme_dessert">Dessert</string>
+    <string name="theme_heavy_rain">Heavy rain</string>
+    <string name="theme_chrome">Chrome</string>
+    <string name="theme_teal">Teal</string>
+
 </resources>
