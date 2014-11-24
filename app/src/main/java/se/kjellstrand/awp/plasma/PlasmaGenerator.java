@@ -57,14 +57,13 @@ public class PlasmaGenerator {
 		yWaveAllocation = Allocation.createSized(rs, type, height);
 		coloriseScript.bind_xwave(xWaveAllocation);
 		coloriseScript.bind_ywave(yWaveAllocation);
-		
+
 		coloriseScript.set_colorSize(paletteSize);
 		coloriseScript.set_width(width);
 	}
 
 	public Bitmap getBitmapForFrame(int frame) {
 		long t = System.currentTimeMillis();
-
 		renderWaves(frame);
 		Log.d(TAG, "renderWaves: " + (System.currentTimeMillis() - t));
 
@@ -81,20 +80,23 @@ public class PlasmaGenerator {
 	}
 
 	private void renderWaves(int frame) {
+		float weight = 0.5f - (float) (Math.sin(frame / 51f) + 1f) / 2f / 4f;
+		// Log.d("tag", "weight " + weight);
+		float speed = 5f;
 		for (int x = 0; x < xwave.length; x++) {
-			xwave[x] = getSeed(frame+x, 73f, width) * 0.5f;
-			//Log.d("tag", "x: "+xwave[x]);
+			xwave[x] = (getSeed(frame*speed + x, 127f, width) + getSeed(-frame*speed + x,
+					77f, width)) * weight / 2f;
 		}
 		for (int y = 0; y < ywave.length; y++) {
-			ywave[y] = getSeed(frame+y, 44f, height) * 0.5f;
-			//Log.d("tag", "y: "+ywave[y]);
+			ywave[y] = (getSeed(frame*speed + y, 129f, height) + getSeed(-frame*speed + y,
+					75f, height)) * (1 - weight) / 2f;
 		}
 
 		xWaveAllocation.copy1DRangeFrom(0, width, xwave);
 		yWaveAllocation.copy1DRangeFrom(0, height, ywave);
 	}
 
-	private float getSeed(int seed, float frequency, int width) {
+	private float getSeed(float seed, float frequency, int width) {
 		return (float) (Math.sin(seed / frequency) + 1) / 2f;
 	}
 

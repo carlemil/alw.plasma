@@ -27,7 +27,7 @@ public class PlasmaWallpaper extends WallpaperService {
 		private Handler handler = new Handler();
 		private boolean visible;
 		private int frame = (int) System.currentTimeMillis()/1000;
-		private float scale = 1.0f;
+		private float scale = 2.0f;
 
 		private Runnable iteration = new Runnable() {
 			public void run() {
