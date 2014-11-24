@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Plasma</string>
+    <string name="service_name">Plasma</string>
+    <string name="eld_desc">Plasma</string>
+</resources>
