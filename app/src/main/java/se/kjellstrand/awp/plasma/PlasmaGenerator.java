@@ -104,7 +104,9 @@ public class PlasmaGenerator {
 	private float getSeed(float frame, float n, float speedDiv, float scaleDiv, float weight) {
 		float speedFreq = (float) (Math.sin(frame/speedDiv));
 		float scaleFreq = (float) (Math.cos(frame/scaleDiv));
-		return (float) (Math.sin(frame / 1000f * speedFreq + n /100f * scaleFreq) + 1f) / 2f;
+		// Div 2 for sin and another div 2 for x+y in renderscript.
+		// TODO optimize and do * colorSize here instead of in script.
+		return (float) (Math.sin(frame / 1000f * speedFreq + n /100f * scaleFreq) + 1f) / 2f / 2f;
 	}
 
 	private void renderColors() {
