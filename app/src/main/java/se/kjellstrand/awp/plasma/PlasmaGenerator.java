@@ -30,7 +30,6 @@ public class PlasmaGenerator {
 
 	private RenderScript rs;
 
-	private int paletteSize = 100;
 	private float speed = 0.7f;
 	private float scale = 1.0f;
 
@@ -58,7 +57,6 @@ public class PlasmaGenerator {
 		coloriseScript.bind_xwave(xWaveAllocation);
 		coloriseScript.bind_ywave(yWaveAllocation);
 
-		coloriseScript.set_colorSize(paletteSize);
 		coloriseScript.set_width(width);
 	}
 
@@ -105,8 +103,9 @@ public class PlasmaGenerator {
 		float scaleFreq = (float) (Math.cos(frame / scaleDiv));
 		// Div 2 for sin and another div 2 for x+y in renderscript.
 		// TODO optimize and do * colorSize here instead of in script.
-		return (float) (Math.sin(frame * speed / 1000f * speedFreq + n * scale / 100f
-				* scaleFreq) + 1f) / 2f / 2f * weight;
+		return (float) (Math.sin(frame * speed / 1000f * speedFreq + n * scale
+				/ 100f * scaleFreq) + 1f)
+				/ 2f / 2f * weight;
 	}
 
 	private void renderColors() {
@@ -128,15 +127,17 @@ public class PlasmaGenerator {
 	}
 
 	private void setupPalette(Context context) {
+		int paletteSize = 600;
 		int brightness = 100;
 		Theme theme = new Theme(context.getResources().getString(
-				R.string.theme_dessert), context, paletteSize);
+				R.string.theme_sunset), context, paletteSize);
 		int[] d = Palette.getPalette(context, theme, brightness);
 
 		Element type = Element.I32(rs);
 		Allocation colorAllocation = Allocation.createSized(rs, type,
 				paletteSize);
 		coloriseScript.bind_color(colorAllocation);
+		coloriseScript.set_colorSize(paletteSize);
 
 		colorAllocation.copy1DRangeFrom(0, paletteSize, d);
 	}

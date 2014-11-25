@@ -22,12 +22,12 @@ public class PlasmaWallpaper extends WallpaperService {
 	class PlasmaWPEngine extends Engine {
 
 		private static final int FPS = 60;
+		private static final float scale = 2.0f;
 
 		private PlasmaGenerator plasmaGenerator = null;
 		private Handler handler = new Handler();
 		private boolean visible;
 		private int frame = (int) System.currentTimeMillis()/1000;
-		private float scale = 2.0f;
 
 		private Runnable iteration = new Runnable() {
 			public void run() {
