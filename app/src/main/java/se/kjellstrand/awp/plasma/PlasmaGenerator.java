@@ -32,7 +32,7 @@ public class PlasmaGenerator {
 
 	private int paletteSize = 100;
 	private float speed = 0.7f;
-	private float scale = 1.5f;
+	private float scale = 1.0f;
 
 	public PlasmaGenerator(Context context, int width, int height) {
 		this.width = width;
@@ -80,7 +80,7 @@ public class PlasmaGenerator {
 	}
 
 	private void renderWaves(int frame) {
-		float w1 = 0.4f; // - (float) (Math.sin(frame / 51f) + 1f) / 2f / 4f;
+		float w1 = 0.4f;
 		float w2 = 0.3f;
 		float w3 = 0.3f;
 
@@ -130,7 +130,7 @@ public class PlasmaGenerator {
 	private void setupPalette(Context context) {
 		int brightness = 100;
 		Theme theme = new Theme(context.getResources().getString(
-				R.string.theme_shiny_scales), context, paletteSize);
+				R.string.theme_dessert), context, paletteSize);
 		int[] d = Palette.getPalette(context, theme, brightness);
 
 		Element type = Element.I32(rs);
