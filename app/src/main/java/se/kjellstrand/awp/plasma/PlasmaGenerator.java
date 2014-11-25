@@ -30,7 +30,9 @@ public class PlasmaGenerator {
 
 	private RenderScript rs;
 
-	private int paletteSize = 140;
+	private int paletteSize = 100;
+	private float speed = 1f;
+	private float scale = 1f;
 
 	public PlasmaGenerator(Context context, int width, int height) {
 		this.width = width;
@@ -78,24 +80,31 @@ public class PlasmaGenerator {
 	}
 
 	private void renderWaves(int frame) {
-		float weight = 0.5f - (float) (Math.sin(frame / 51f) + 1f) / 2f / 4f;
-		// Log.d("tag", "weight " + weight);
-		float speed = 5f;
+		float w1 = 1.0f; // - (float) (Math.sin(frame / 51f) + 1f) / 2f / 4f;
+		float w2 = 0.3f;
+		float w3 = 0.3f;
+
 		for (int x = 0; x < xwave.length; x++) {
-			xwave[x] = (getSeed(frame * speed + x, 127f, width) + getSeed(
-					-frame * speed + x, 77f, width)) * weight / 2f;
+			xwave[x] = getSeed(frame, x, 12700f, 120f, w1);
+//			+ //
+//					getSeed(frame, x, 77f, 19f, w2) + //
+//					getSeed(frame, x, 57f, 17f, w3);
 		}
 		for (int y = 0; y < ywave.length; y++) {
-			ywave[y] = (getSeed(frame * speed + y, 129f, height) + getSeed(
-					-frame * speed + y, 75f, height)) * (1 - weight) / 2f;
+			ywave[y] = getSeed(frame, y, 12100f, 210f, w1);
+//			+ //
+//					getSeed(frame, y, 71f, 18f, w2) + //
+//					getSeed(frame, y, 55f, 15f, w3);
 		}
 
 		xWaveAllocation.copy1DRangeFrom(0, width, xwave);
 		yWaveAllocation.copy1DRangeFrom(0, height, ywave);
 	}
 
-	private float getSeed(float seed, float frequency, int width) {
-		return (float) (Math.sin(seed / frequency) + 1) / 2f;
+	private float getSeed(float frame, float n, float speedDiv, float scaleDiv, float weight) {
+		float speedFreq = (float) (Math.sin(frame/speedDiv));
+		float scaleFreq = (float) (Math.cos(frame/scaleDiv));
+		return (float) (Math.sin(frame / 1000f * speedFreq + n /100f * scaleFreq) + 1f) / 2f;
 	}
 
 	private void renderColors() {
@@ -121,9 +130,6 @@ public class PlasmaGenerator {
 		Theme theme = new Theme(context.getResources().getString(
 				R.string.theme_shiny_scales), context, paletteSize);
 		int[] d = Palette.getPalette(context, theme, brightness);
-		for(int i=0;i<d.length;i++){
-			Log.d("tag", "I: "+d[i]);
-		}
 
 		Element type = Element.I32(rs);
 		Allocation colorAllocation = Allocation.createSized(rs, type,
