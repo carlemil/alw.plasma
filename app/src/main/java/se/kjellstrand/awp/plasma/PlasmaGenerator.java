@@ -31,8 +31,8 @@ public class PlasmaGenerator {
 	private RenderScript rs;
 
 	private int paletteSize = 100;
-	private float speed = 1f;
-	private float scale = 1f;
+	private float speed = 0.7f;
+	private float scale = 1.5f;
 
 	public PlasmaGenerator(Context context, int width, int height) {
 		this.width = width;
@@ -80,33 +80,33 @@ public class PlasmaGenerator {
 	}
 
 	private void renderWaves(int frame) {
-		float w1 = 1.0f; // - (float) (Math.sin(frame / 51f) + 1f) / 2f / 4f;
+		float w1 = 0.4f; // - (float) (Math.sin(frame / 51f) + 1f) / 2f / 4f;
 		float w2 = 0.3f;
 		float w3 = 0.3f;
 
 		for (int x = 0; x < xwave.length; x++) {
-			xwave[x] = getSeed(frame, x, 12700f, 120f, w1);
-//			+ //
-//					getSeed(frame, x, 77f, 19f, w2) + //
-//					getSeed(frame, x, 57f, 17f, w3);
+			xwave[x] = getSeed(frame, x, 12730f, 201f, w1) + //
+					getSeed(frame, x, 9077f, 167f, w2) + //
+					getSeed(frame, x, 5057f, 117f, w3);
 		}
 		for (int y = 0; y < ywave.length; y++) {
-			ywave[y] = getSeed(frame, y, 12100f, 210f, w1);
-//			+ //
-//					getSeed(frame, y, 71f, 18f, w2) + //
-//					getSeed(frame, y, 55f, 15f, w3);
+			ywave[y] = getSeed(frame, y, 12109f, 210f, w1) + //
+					getSeed(frame, y, 9371f, 158f, w2) + //
+					getSeed(frame, y, 5255f, 125f, w3);
 		}
 
 		xWaveAllocation.copy1DRangeFrom(0, width, xwave);
 		yWaveAllocation.copy1DRangeFrom(0, height, ywave);
 	}
 
-	private float getSeed(float frame, float n, float speedDiv, float scaleDiv, float weight) {
-		float speedFreq = (float) (Math.sin(frame/speedDiv));
-		float scaleFreq = (float) (Math.cos(frame/scaleDiv));
+	private float getSeed(float frame, float n, float speedDiv, float scaleDiv,
+			float weight) {
+		float speedFreq = (float) (Math.sin(frame / speedDiv));
+		float scaleFreq = (float) (Math.cos(frame / scaleDiv));
 		// Div 2 for sin and another div 2 for x+y in renderscript.
 		// TODO optimize and do * colorSize here instead of in script.
-		return (float) (Math.sin(frame / 1000f * speedFreq + n /100f * scaleFreq) + 1f) / 2f / 2f;
+		return (float) (Math.sin(frame * speed / 1000f * speedFreq + n * scale / 100f
+				* scaleFreq) + 1f) / 2f / 2f * weight;
 	}
 
 	private void renderColors() {
