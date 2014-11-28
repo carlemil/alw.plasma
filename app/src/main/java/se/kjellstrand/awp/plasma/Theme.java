@@ -14,10 +14,9 @@ public class Theme {
             0xffffff, 0x000000
     };
 
-    public int paletteSize;
+    public int paletteSize = 100;
 
-    public Theme(String themeName, Context context, int paletteSize) {
-    	this.paletteSize = paletteSize;
+    public Theme(String themeName, Context context) {
         if (context.getResources().getString(R.string.theme_black_n_white, "").equals(themeName)) {
             drawMode = DrawMode.GRADIENT;
         } else if (context.getResources().getString(R.string.theme_bee_stripes, "").equals(themeName)) {
@@ -124,5 +123,9 @@ public class Theme {
         }
 
     }
+
+	public int getPaletteSize() {
+		return paletteSize;
+	}
 
 }

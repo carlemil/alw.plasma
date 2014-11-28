@@ -1,7 +1,9 @@
 package se.kjellstrand.awp.plasma;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -48,8 +50,18 @@ public class PlasmaGenerator {
 		bitmapValues = new int[width * height];
 		xwave = new float[width];
 		ywave = new float[height];
+		
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		
+		String themesKey = context.getResources().getString(R.string.pref_theme_key);
+        String themeName = sharedPreferences.getString(themesKey, context.getResources().getString(R.string.theme_black_n_white));
+        Theme theme = new Theme(themeName, context);
 
-		setupPalette(context);
+        String brightnessKey = context.getResources().getString(R.string.pref_brightness_key);
+        int brightness = sharedPreferences.getInt(brightnessKey, 100);
+
+
+		setupPalette(context, theme, brightness);
 
 		Element type = Element.F32(rs);
 		xWaveAllocation = Allocation.createSized(rs, type, width);
@@ -126,16 +138,14 @@ public class PlasmaGenerator {
 		coloriseScript = new ScriptC_colorize(rs);
 	}
 
-	private void setupPalette(Context context) {
-		int paletteSize = 600;
-		int brightness = 100;
-		Theme theme = new Theme(context.getResources().getString(
-				R.string.theme_sunset), context, paletteSize);
+	private void setupPalette(Context context, Theme theme, int brightness) {
+		int paletteSize = theme.getPaletteSize();
+		
 		int[] d = Palette.getPalette(context, theme, brightness);
 
 		Element type = Element.I32(rs);
 		Allocation colorAllocation = Allocation.createSized(rs, type,
-				paletteSize);
+				paletteSize );
 		coloriseScript.bind_color(colorAllocation);
 		coloriseScript.set_colorSize(paletteSize);
 

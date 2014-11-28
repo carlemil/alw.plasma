@@ -12,6 +12,9 @@ import android.view.SurfaceHolder;
  * Created by Carl-Emil Kjellstrand on 10/31/14.
  */
 public class PlasmaWallpaper extends WallpaperService {
+	
+	private static final int FPS = 60;
+	public static final float SCALE = 2.0f;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -20,9 +23,6 @@ public class PlasmaWallpaper extends WallpaperService {
 	}
 
 	class PlasmaWPEngine extends Engine {
-
-		private static final int FPS = 60;
-		private static final float scale = 2.0f;
 
 		private PlasmaGenerator plasmaGenerator = null;
 		private Handler handler = new Handler();
@@ -59,7 +59,7 @@ public class PlasmaWallpaper extends WallpaperService {
 		public void onSurfaceChanged(SurfaceHolder holder, int format,
 				int width, int height) {
 			plasmaGenerator = new PlasmaGenerator(getApplicationContext(),
-					(int) (width / scale), (int) (height / scale));
+					(int) (width / SCALE), (int) (height / SCALE));
 			iteration();
 			drawFrame();
 		}
@@ -102,7 +102,7 @@ public class PlasmaWallpaper extends WallpaperService {
 
 			Matrix matrix = new Matrix();
 			matrix.reset();
-			matrix.setScale(scale, scale);
+			matrix.setScale(SCALE, SCALE);
 			c.drawBitmap(bitmap, matrix, paint);
 		}
 
