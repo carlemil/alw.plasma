@@ -32,9 +32,12 @@
     <string name="pref_speed_key">speed_key</string>
     <string name="pref_speed_summary">Adjust speed</string>
     <string name="pref_speed_title">Speed</string>
-    <string name="pref_scale_key">scale_key</string>
-    <string name="pref_scale_summary">Adjust scale</string>
-    <string name="pref_scale_title">Scale</string>
+    <string name="pref_scale_plasma_key">scale_plasma_key</string>
+    <string name="pref_scale_plasma_summary">Adjust plasma scale</string>
+    <string name="pref_scale_plasma_title">Scale plasma</string>
+    <string name="pref_scale_pixels_key">scale_pixels_key</string>
+    <string name="pref_scale_pixels_summary">Adjust pixel scale</string>
+    <string name="pref_scale_pixels_title">Scale pixels</string>
 
     <string name="theme_black_n_white">Black and White</string>
     <string name="theme_blue_yellow">Blue and Yellow</string>

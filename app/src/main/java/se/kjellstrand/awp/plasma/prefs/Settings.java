@@ -1,7 +1,6 @@
 
 package se.kjellstrand.awp.plasma.prefs;
 
-import se.kjellstrand.awp.plasma.PlasmaWallpaper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -31,7 +30,7 @@ public final class Settings {
     }
 
     public static float getZoom(Context context) {
-        return loadSharedPreferences(context).getFloat(PREFS_ZOOM, PlasmaWallpaper.SCALE);
+        return loadSharedPreferences(context).getFloat(PREFS_ZOOM, 1);
     }
 
     public static void reset(Context context) {

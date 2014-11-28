@@ -1,10 +1,12 @@
 package se.kjellstrand.awp.plasma;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -18,7 +20,7 @@ public class PlasmaWallpaper extends WallpaperService {
 
 	private static final int FPS = 60;
 
-	public static final float SCALE = 2.0f;
+	public float scalePixels = 2.0f;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -53,8 +55,15 @@ public class PlasmaWallpaper extends WallpaperService {
 			this.visible = visible;
 
 			if (visible) {
+				SharedPreferences sharedPreferences = PreferenceManager
+						.getDefaultSharedPreferences(getApplicationContext());
+				String scaleKey = getApplicationContext().getResources()
+						.getString(R.string.pref_scale_pixels_key);
+				scalePixels = (float) Math.pow(2, sharedPreferences.getInt(scaleKey, 1));
+				Log.d(TAG, "SCALE: "+scalePixels);
 				plasmaGenerator = new PlasmaGenerator(getApplicationContext(),
-						(int) (width / SCALE), (int) (height / SCALE));
+						(int) Math.ceil(width / scalePixels),
+						(int) Math.ceil(height / scalePixels), scalePixels);
 				iteration();
 				drawFrame();
 			} else {
@@ -108,7 +117,7 @@ public class PlasmaWallpaper extends WallpaperService {
 
 			Matrix matrix = new Matrix();
 			matrix.reset();
-			matrix.setScale(SCALE, SCALE);
+			matrix.setScale(scalePixels, scalePixels);
 			c.drawBitmap(bitmap, matrix, paint);
 		}
 

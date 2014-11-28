@@ -25,11 +25,21 @@
     
     <com.robobunny.SeekBarPreference
         android:defaultValue="20"
-        android:key="@string/pref_scale_key"
-        android:max="30"
-        android:summary="@string/pref_scale_summary"
-        android:title="@string/pref_scale_title"
-        robobunny:min="5"
+        android:key="@string/pref_scale_plasma_key"
+        android:max="10"
+        android:summary="@string/pref_scale_plasma_summary"
+        android:title="@string/pref_scale_plasma_title"
+        robobunny:min="1"
+        robobunny:unitsLeft=""
+        robobunny:unitsRight="x" />
+    
+    <com.robobunny.SeekBarPreference
+        android:defaultValue="2"
+        android:key="@string/pref_scale_pixels_key"
+        android:max="6"
+        android:summary="@string/pref_scale_pixels_summary"
+        android:title="@string/pref_scale_pixels_title"
+        robobunny:min="1"
         robobunny:unitsLeft=""
         robobunny:unitsRight="x" />
     
