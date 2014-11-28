@@ -32,7 +32,7 @@ public class PlasmaGenerator {
 
 	private RenderScript rs;
 
-	private float speed = 0.7f;
+	private float speed = 1.0f;
 	private float scalePlasma = 1.0f;
 
 	public PlasmaGenerator(Context context, int width, int height, float scalePixels) {
@@ -78,19 +78,9 @@ public class PlasmaGenerator {
 	}
 
 	public Bitmap getBitmapForFrame(int frame) {
-		long t = System.currentTimeMillis();
 		renderWaves(frame);
-		Log.d(TAG, "renderWaves: " + (System.currentTimeMillis() - t));
-
-		t = System.currentTimeMillis();
 		renderColors();
-		rs.finish();
-		Log.d(TAG, "renderColors: " + (System.currentTimeMillis() - t));
-
-		t = System.currentTimeMillis();
 		copyToBitmap();
-		rs.finish();
-		Log.d(TAG, "renderToBitmap: " + (System.currentTimeMillis() - t));
 		return bitmap;
 	}
 
