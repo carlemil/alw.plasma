@@ -55,7 +55,7 @@ public class Palette {
 				int r = ((c & 0xff0000) >> 1) & 0xff0000;
 				int g = ((c & 0x00ff00) >> 1) & 0x00ff00;
 				int b = ((c & 0x0000ff) >> 1) & 0x0000ff;
-				palette[i] = r + g + b;
+				palette[i] = r + g + b + 0xff000000;
 			}
 		}
 	}
