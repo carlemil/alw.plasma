@@ -60,5 +60,7 @@
     <string name="theme_heavy_rain">Heavy rain</string>
     <string name="theme_chrome">Chrome</string>
     <string name="theme_teal">Teal</string>
-
+    <string name="theme_rgb">Red, green, blue and things in-between</string>
+    <string name="theme_pastel_colors">Pastel colors</string>
+    
 </resources>

@@ -123,6 +123,19 @@ public class Theme {
                     0x000000, 0x0055bb, 0x000000
             };
             paletteSize = 80;
+        } else if (context.getResources().getString(R.string.theme_rgb, "").equals(themeName)) {
+            drawMode = DrawMode.GRADIENT;
+            palette = new int[] {
+                    0x000000, 0x0000ff, 0x00ff00, 0x0000ff, 0xff0000, 0x00ff00, 0xff0000, 
+                    0x0000ff, 0xff0000, 0x00ff00, 0x0000ff, 0x00ff00, 0xff0000, 
+                    0x0000ff, 0x00ff00, 0x0000ff, 0xff0000, 0x00ff00, 0xff0000, 0x000000
+            };
+        } else if (context.getResources().getString(R.string.theme_pastel_colors, "").equals(themeName)) {
+            drawMode = DrawMode.GRADIENT;
+            palette = new int[] {
+                    0x9977b4, 0xdb87b9, 0xf497a9, 0xf8a792, 0xfabc89, 0xfee185, 
+                    0xfff68f, 0xd5e286, 0x8fcd9e, 0x77ccc9, 0x6bbce9, 0x71abdd, 0x877bb9
+            };
         } else if (context.getResources().getString(R.string.theme_zebra_stripes, "").equals(themeName)) {
             paletteSize = 40;
         }
