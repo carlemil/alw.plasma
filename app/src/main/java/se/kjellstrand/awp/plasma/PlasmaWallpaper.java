@@ -6,14 +6,18 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 /**
  * Created by Carl-Emil Kjellstrand on 10/31/14.
  */
 public class PlasmaWallpaper extends WallpaperService {
-	
+
+	private static final String TAG = PlasmaWallpaper.class.getCanonicalName();
+
 	private static final int FPS = 60;
+
 	public static final float SCALE = 2.0f;
 
 	@Override
@@ -23,11 +27,12 @@ public class PlasmaWallpaper extends WallpaperService {
 	}
 
 	class PlasmaWPEngine extends Engine {
-
 		private PlasmaGenerator plasmaGenerator = null;
 		private Handler handler = new Handler();
 		private boolean visible;
-		private int frame = (int) System.currentTimeMillis()/1000;
+		private int frame = (int) System.currentTimeMillis() / 1000;
+		private int width;
+		private int height;
 
 		private Runnable iteration = new Runnable() {
 			public void run() {
@@ -46,7 +51,10 @@ public class PlasmaWallpaper extends WallpaperService {
 		@Override
 		public void onVisibilityChanged(boolean visible) {
 			this.visible = visible;
+
 			if (visible) {
+				plasmaGenerator = new PlasmaGenerator(getApplicationContext(),
+						(int) (width / SCALE), (int) (height / SCALE));
 				iteration();
 				drawFrame();
 			} else {
@@ -58,10 +66,8 @@ public class PlasmaWallpaper extends WallpaperService {
 		@Override
 		public void onSurfaceChanged(SurfaceHolder holder, int format,
 				int width, int height) {
-			plasmaGenerator = new PlasmaGenerator(getApplicationContext(),
-					(int) (width / SCALE), (int) (height / SCALE));
-			iteration();
-			drawFrame();
+			this.width = width;
+			this.height = height;
 		}
 
 		@Override

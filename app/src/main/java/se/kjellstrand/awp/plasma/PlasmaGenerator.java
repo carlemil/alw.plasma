@@ -60,7 +60,6 @@ public class PlasmaGenerator {
         String brightnessKey = context.getResources().getString(R.string.pref_brightness_key);
         int brightness = sharedPreferences.getInt(brightnessKey, 100);
 
-
 		setupPalette(context, theme, brightness);
 
 		Element type = Element.F32(rs);
@@ -95,14 +94,14 @@ public class PlasmaGenerator {
 		float w3 = 0.3f;
 
 		for (int x = 0; x < xwave.length; x++) {
-			xwave[x] = getSeed(frame, x, 12730f, 201f, w1) + //
+			xwave[x] = getSeed(frame, x, 12730f, 301f, w1) + //
 					getSeed(frame, x, 9077f, 167f, w2) + //
-					getSeed(frame, x, 5057f, 117f, w3);
+					getSeed(frame, x, 3057f, 77f, w3);
 		}
 		for (int y = 0; y < ywave.length; y++) {
-			ywave[y] = getSeed(frame, y, 12109f, 210f, w1) + //
+			ywave[y] = getSeed(frame, y, 12109f, 310f, w1) + //
 					getSeed(frame, y, 9371f, 158f, w2) + //
-					getSeed(frame, y, 5255f, 125f, w3);
+					getSeed(frame, y, 3255f, 75f, w3);
 		}
 
 		xWaveAllocation.copy1DRangeFrom(0, width, xwave);
