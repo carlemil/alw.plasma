@@ -22,5 +22,25 @@
         robobunny:min="10"
         robobunny:unitsLeft=""
         robobunny:unitsRight="%" />
+    
+    <com.robobunny.SeekBarPreference
+        android:defaultValue="20"
+        android:key="@string/pref_scale_key"
+        android:max="30"
+        android:summary="@string/pref_scale_summary"
+        android:title="@string/pref_scale_title"
+        robobunny:min="5"
+        robobunny:unitsLeft=""
+        robobunny:unitsRight="x" />
+    
+    <com.robobunny.SeekBarPreference
+        android:defaultValue="10"
+        android:key="@string/pref_speed_key"
+        android:max="50"
+        android:summary="@string/pref_speed_summary"
+        android:title="@string/pref_speed_title"
+        robobunny:min="1"
+        robobunny:unitsLeft=""
+        robobunny:unitsRight="x" />
  
 </PreferenceScreen>
