@@ -24,7 +24,7 @@
         robobunny:unitsRight="%" />
     
     <com.robobunny.SeekBarPreference
-        android:defaultValue="20"
+        android:defaultValue="5"
         android:key="@string/pref_scale_plasma_key"
         android:max="10"
         android:summary="@string/pref_scale_plasma_summary"
@@ -36,7 +36,7 @@
     <com.robobunny.SeekBarPreference
         android:defaultValue="2"
         android:key="@string/pref_scale_pixels_key"
-        android:max="6"
+        android:max="7"
         android:summary="@string/pref_scale_pixels_summary"
         android:title="@string/pref_scale_pixels_title"
         robobunny:min="1"
@@ -44,9 +44,9 @@
         robobunny:unitsRight="x" />
     
     <com.robobunny.SeekBarPreference
-        android:defaultValue="10"
+        android:defaultValue="3"
         android:key="@string/pref_speed_key"
-        android:max="50"
+        android:max="10"
         android:summary="@string/pref_speed_summary"
         android:title="@string/pref_speed_title"
         robobunny:min="1"

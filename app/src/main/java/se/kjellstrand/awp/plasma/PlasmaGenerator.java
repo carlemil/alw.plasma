@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
-import android.util.Log;
 
 /**
  * Created by Carl-Emil Kjellstrand on 11/24/14.
@@ -32,8 +31,8 @@ public class PlasmaGenerator {
 
 	private RenderScript rs;
 
-	private float speed = 1.0f;
-	private float scalePlasma = 1.0f;
+	private float speed = 3.0f;
+	private float scalePlasma = 3.0f;
 
 	public PlasmaGenerator(Context context, int width, int height, float scalePixels) {
 		this.width = width;
@@ -50,21 +49,22 @@ public class PlasmaGenerator {
 		bitmapValues = new int[width * height];
 		xwave = new float[width];
 		ywave = new float[height];
-		
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-		
+
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
 		String themesKey = context.getResources().getString(R.string.pref_theme_key);
-        String themeName = sharedPreferences.getString(themesKey, context.getResources().getString(R.string.theme_black_n_white));
-        Theme theme = new Theme(themeName, context);
+		String themeName = sharedPreferences.getString(themesKey,
+				context.getResources().getString(R.string.theme_black_n_white));
+		Theme theme = new Theme(themeName, context);
 
-        String speedKey = context.getResources().getString(R.string.pref_speed_key);
-        speed = sharedPreferences.getInt(speedKey, 10);
+		String speedKey = context.getResources().getString(R.string.pref_speed_key);
+		speed = (float) Math.pow(2, sharedPreferences.getInt(speedKey, 3));
 
-        String scaleKey = context.getResources().getString(R.string.pref_scale_plasma_key);
-        scalePlasma = (sharedPreferences.getInt(scaleKey, 10) + 4) * scalePixels;
-        
-        String brightnessKey = context.getResources().getString(R.string.pref_brightness_key);
-        int brightness = sharedPreferences.getInt(brightnessKey, 100);
+		String scaleKey = context.getResources().getString(R.string.pref_scale_plasma_key);
+		scalePlasma = (float) Math.pow(2, sharedPreferences.getInt(scaleKey, 3)) * scalePixels;
+
+		String brightnessKey = context.getResources().getString(R.string.pref_brightness_key);
+		int brightness = sharedPreferences.getInt(brightnessKey, 100);
 
 		setupPalette(context, theme, brightness);
 
@@ -104,15 +104,13 @@ public class PlasmaGenerator {
 		yWaveAllocation.copy1DRangeFrom(0, height, ywave);
 	}
 
-	private float getSeed(float frame, float n, float speedDiv, float scaleDiv,
-			float weight) {
+	private float getSeed(float frame, float n, float speedDiv, float scaleDiv, float weight) {
 		float speedFreq = (float) (Math.sin(frame / speedDiv));
 		float scaleFreq = (float) (Math.cos(frame / scaleDiv));
 		// Div 2 for sin and another div 2 for x+y in renderscript.
 		// TODO optimize and do * colorSize here instead of in script.
-		return (float) (Math.sin(frame * speed / 10000f * speedFreq + n * scalePlasma
-				/ 1000f * scaleFreq) + 1f)
-				/ 2f / 2f * weight;
+		return (float) (Math.sin(frame * speed / 20000f * speedFreq + n * scalePlasma / 10000f * scaleFreq) + 1f) / 2f
+				/ 2f * weight;
 	}
 
 	private void renderColors() {
@@ -125,8 +123,7 @@ public class PlasmaGenerator {
 	}
 
 	private void setupAllocations(int width, int height) {
-		allocationColorized = Allocation.createSized(rs, Element.I32(rs), width
-				* height);
+		allocationColorized = Allocation.createSized(rs, Element.I32(rs), width * height);
 	}
 
 	private void setupColorizeScript() {
@@ -135,12 +132,11 @@ public class PlasmaGenerator {
 
 	private void setupPalette(Context context, Theme theme, int brightness) {
 		int paletteSize = theme.getPaletteSize();
-		
+
 		int[] d = Palette.getPalette(context, theme, brightness);
 
 		Element type = Element.I32(rs);
-		Allocation colorAllocation = Allocation.createSized(rs, type,
-				paletteSize );
+		Allocation colorAllocation = Allocation.createSized(rs, type, paletteSize);
 		coloriseScript.bind_color(colorAllocation);
 		coloriseScript.set_colorSize(paletteSize);
 
