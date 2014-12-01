@@ -14,7 +14,7 @@
         android:title="@string/pref_theme_title" />
 
     <com.robobunny.SeekBarPreference
-        android:defaultValue="70"
+        android:defaultValue="100"
         android:key="@string/pref_brightness_key"
         android:max="100"
         android:summary="@string/pref_brightness_summary"
@@ -24,7 +24,7 @@
         robobunny:unitsRight="%" />
     
     <com.robobunny.SeekBarPreference
-        android:defaultValue="5"
+        android:defaultValue="3"
         android:key="@string/pref_scale_plasma_key"
         android:max="10"
         android:summary="@string/pref_scale_plasma_summary"
@@ -46,7 +46,7 @@
     <com.robobunny.SeekBarPreference
         android:defaultValue="3"
         android:key="@string/pref_speed_key"
-        android:max="10"
+        android:max="7"
         android:summary="@string/pref_speed_summary"
         android:title="@string/pref_speed_title"
         robobunny:min="1"

@@ -61,7 +61,7 @@ public class PlasmaGenerator {
 		speed = (float) Math.pow(2, sharedPreferences.getInt(speedKey, 3));
 
 		String scaleKey = context.getResources().getString(R.string.pref_scale_plasma_key);
-		scalePlasma = (float) Math.pow(2, sharedPreferences.getInt(scaleKey, 3)) * scalePixels;
+		scalePlasma = (float) Math.pow(2, sharedPreferences.getInt(scaleKey, 3) / 2 + 1) * scalePixels;
 
 		String brightnessKey = context.getResources().getString(R.string.pref_brightness_key);
 		int brightness = sharedPreferences.getInt(brightnessKey, 100);
@@ -109,7 +109,7 @@ public class PlasmaGenerator {
 		float scaleFreq = (float) (Math.cos(frame / scaleDiv));
 		// Div 2 for sin and another div 2 for x+y in renderscript.
 		// TODO optimize and do * colorSize here instead of in script.
-		return (float) (Math.sin(frame * speed / 20000f * speedFreq + n * scalePlasma / 10000f * scaleFreq) + 1f) / 2f
+		return (float) (Math.sin(frame * speed / 20000f * speedFreq + n * scalePlasma / 3000f * scaleFreq) + 1f) / 2f
 				/ 2f * weight;
 	}
 
