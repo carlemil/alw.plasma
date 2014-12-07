@@ -31,7 +31,7 @@ public class PlasmaGenerator {
 
 	private RenderScript rs;
 
-	private float speed = 3.0f;
+	private float speed = 1.0f;
 	private float scalePlasma = 3.0f;
 
 	public PlasmaGenerator(Context context, int width, int height, float scalePixels) {
@@ -54,7 +54,7 @@ public class PlasmaGenerator {
 
 		String themesKey = context.getResources().getString(R.string.pref_theme_key);
 		String themeName = sharedPreferences.getString(themesKey,
-				context.getResources().getString(R.string.theme_black_n_white));
+				context.getResources().getString(R.string.theme_shiny_scales));
 		Theme theme = new Theme(themeName, context);
 
 		String speedKey = context.getResources().getString(R.string.pref_speed_key);

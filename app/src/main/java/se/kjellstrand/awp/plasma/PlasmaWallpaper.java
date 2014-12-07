@@ -20,7 +20,7 @@ public class PlasmaWallpaper extends WallpaperService {
 
 	private static final int FPS = 60;
 
-	public float scalePixels = 2.0f;
+	public float scalePixels = 1.0f;
 
 	@Override
 	public Engine onCreateEngine() {
