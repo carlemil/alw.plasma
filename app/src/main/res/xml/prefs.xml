@@ -5,7 +5,7 @@
 
     <ListPreference
         android:id="@+id/pref_theme"
-        android:defaultValue="@string/theme_black_n_white"
+        android:defaultValue="@string/theme_shiny_scales"
         android:dialogTitle="@string/pref_theme_dialog_title"
         android:entries="@array/list_of_theme_entries"
         android:entryValues="@array/list_of_theme_entries"
@@ -34,7 +34,7 @@
         robobunny:unitsRight="x" />
     
     <com.robobunny.SeekBarPreference
-        android:defaultValue="2"
+        android:defaultValue="1"
         android:key="@string/pref_scale_pixels_key"
         android:max="7"
         android:summary="@string/pref_scale_pixels_summary"
@@ -46,7 +46,7 @@
     <com.robobunny.SeekBarPreference
         android:defaultValue="3"
         android:key="@string/pref_speed_key"
-        android:max="7"
+        android:max="10"
         android:summary="@string/pref_speed_summary"
         android:title="@string/pref_speed_title"
         robobunny:min="1"
